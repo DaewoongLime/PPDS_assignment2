@@ -4,34 +4,69 @@
     "task_title": "Sign up for Arkham Exchange & get up to 120 USDT bonus",
     "reward": "120 USDT",
     "reward_amount": 120.0,
-    "scraped_at": "2025-09-13T20:40:46.669842Z"
+    "scraped_at": "2025-09-13T21:10:30.847373Z"
   },
   {
     "project_name": "AITV",
     "task_title": "Engage with AITV agents to earn the $AITV airdrop",
     "reward": "$AITV",
     "reward_amount": null,
-    "scraped_at": "2025-09-13T20:40:46.670066Z"
+    "scraped_at": "2025-09-13T21:10:30.847735Z"
   },
   {
     "project_name": "Almanak",
     "task_title": "Deposit into Almanak vaults to farm points for a future airdrop",
     "reward": "Token drop",
     "reward_amount": null,
-    "scraped_at": "2025-09-13T20:40:46.670249Z"
+    "scraped_at": "2025-09-13T21:10:30.848014Z"
   },
   {
     "project_name": "GTR",
     "task_title": "Trade on GTR to farm points for future airdrops",
     "reward": "Token drop",
     "reward_amount": null,
-    "scraped_at": "2025-09-13T20:40:46.670435Z"
+    "scraped_at": "2025-09-13T21:10:30.848292Z"
   },
   {
     "project_name": "Bullpen",
     "task_title": "Trade on Bullpen to farm points for a future airdrop",
     "reward": "Airdrop",
     "reward_amount": null,
-    "scraped_at": "2025-09-13T20:40:46.670623Z"
+    "scraped_at": "2025-09-13T21:10:30.848580Z"
+  },
+  {
+    "project_name": "Band Protocol",
+    "task_title": "Scroll with Membit to farm points for Band Protocol’s potential airdrop",
+    "reward": "Token drop",
+    "reward_amount": null,
+    "scraped_at": "2025-09-13T21:10:30.848841Z"
+  },
+  {
+    "project_name": "Datagram Network",
+    "task_title": "Run a Datagram node to earn points for future $DGRAM airdrop",
+    "reward": "$DGRAM airdrop",
+    "reward_amount": null,
+    "scraped_at": "2025-09-13T21:10:30.849106Z"
+  },
+  {
+    "project_name": "Project X",
+    "task_title": "Trade and provide liquidity on Project X to farm points for a future airdrop",
+    "reward": "Token drop",
+    "reward_amount": null,
+    "scraped_at": "2025-09-13T21:10:30.849383Z"
+  },
+  {
+    "project_name": "Strata",
+    "task_title": "Deposit USDe into Strata to farm points for a potential airdrop",
+    "reward": "Potential airdrop",
+    "reward_amount": null,
+    "scraped_at": "2025-09-13T21:10:30.849648Z"
+  },
+  {
+    "project_name": "Okto",
+    "task_title": "Trade on Hyperliquid via Okto wallet to earn weekly $HYPE airdrops",
+    "reward": "Weekly $HYPE airdrop",
+    "reward_amount": null,
+    "scraped_at": "2025-09-13T21:10:30.849895Z"
   }
 ]

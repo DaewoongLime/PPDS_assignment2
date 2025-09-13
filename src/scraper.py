@@ -4,9 +4,16 @@ import random
 import time
 from datetime import datetime
 from typing import List, Dict, Any
+from urllib.parse import urljoin  # NEW
 
 import requests
 from bs4 import BeautifulSoup
+
+# tqdm is optional; fall back gracefully if not installed
+try:
+    from tqdm import tqdm  # NEW
+except Exception:  # NEW
+    tqdm = lambda x, **kw: x  # no-op fallback  # NEW
 
 from transformers import clean_text, extract_reward_amount
 from validators import validate_airdrop, validate_batch
@@ -75,7 +82,8 @@ class SimpleCointelegraphScraper:
         if not cards:
             cards = [a for a in soup.find_all("a") if a.find("div", class_="card")]
 
-        for card in cards[:limit]:
+        loop = tqdm(cards[:limit], total=min(limit, len(cards)))  # NEW
+        for card in loop:
             item = self.parse_card(card)
             if item:
                 items.append(item)
@@ -109,6 +117,22 @@ class SimpleCointelegraphScraper:
                 "scraped_at": datetime.utcnow().isoformat() + "Z",
             }
 
+            # ---- go one level deeper (detail page) ----  # NEW
+            # Try to locate an <a> with href on the card; join with site base
+            a = card.find("a", href=True)
+            if a and a.get("href"):
+                detail_url = urljoin(self.BASE_URL, a["href"])
+                try:
+                    # A tiny delay helps when detail pages render counters server-side / via quick JS
+                    time.sleep(0.4)  # polite & helps JS-driven timestamps settle a bit  # NEW
+                    dhtml = self.fetch_html(detail_url)
+                    detail = self.parse_detail_page(dhtml)
+                    item.update(detail)
+                except Exception:
+                    # best-effort only; continue silently on failure
+                    pass
+            # -------------------------------------------
+
             # Validate essential fields before keeping the record
             if not validate_airdrop(item)["valid"]:
                 return None
@@ -118,6 +142,49 @@ class SimpleCointelegraphScraper:
         except Exception:
             # Fail-soft: skip broken cards without stopping the whole run
             return None
+
+    def parse_detail_page(self, html: str) -> Dict[str, Any]:  # NEW
+        """
+        Best-effort extraction for secondary fields on the bonus page:
+        - time_left, project_link, time_to_complete, steps, risk
+        Returns a partial dict; missing fields default to None.
+        """
+        s = BeautifulSoup(html, "lxml")
+
+        def pick_text(selectors):
+            for css in selectors:
+                el = s.select_one(css)
+                if el and el.get_text(strip=True):
+                    return el.get_text(" ", strip=True)
+            return None
+
+        # Heuristic label search across full text
+        full_text = s.get_text(" ", strip=True)
+        import re
+
+        def find_label(label):
+            m = re.search(rf"{label}\s*[:\-]?\s*(.+?)\s{1,3}(?:\||\n|$)", full_text, re.I)
+            return m.group(1).strip() if m else None
+
+        time_left = find_label("time left") or pick_text([".time-left", ".countdown", "[data-time-left]"])
+        # try to find an external project link (non-cointelegraph link preferred)
+        link_el = s.select_one("a[href^='http']:not([href*='cointelegraph'])")
+        project_link = link_el["href"] if link_el else None
+        time_to_complete = find_label("time to complete") or pick_text([".time-to-complete", ".duration"])
+        steps_cnt = None
+        steps_el = s.select_one(".steps, .task-steps, ol, ul")
+        if steps_el:
+            lis = [li for li in steps_el.find_all("li") if li.get_text(strip=True)]
+            steps_cnt = len(lis) if lis else None
+        risk = find_label("risk") or pick_text([".risk", ".risk-level"])
+
+        return {
+            "detail_time_left": time_left,
+            "detail_project_link": project_link,
+            "detail_time_to_complete": time_to_complete,
+            "detail_steps": steps_cnt,
+            "detail_risk": risk,
+        }
 
     # -----------------------------
     # Public API
@@ -144,7 +211,8 @@ class SimpleCointelegraphScraper:
 
 if __name__ == "__main__":
     scraper = SimpleCointelegraphScraper(timeout=10, delay=1.0, max_retries=3)
-    records = scraper.scrape(limit=5)
+    # Align with the requirement: collect up to 10 items by default  # NEW
+    records = scraper.scrape(limit=10)  # was 5
 
     # Batch validation summary (optional but nice for the rubric)
     summary, results = validate_batch(records)
