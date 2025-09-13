@@ -16,13 +16,13 @@ It collects **up to 10 airdrop tasks** per run, goes **one level deeper into det
 ## 🏗️ Technical Architecture
 ```mermaid
 flowchart LR
-  A[Cointelegraph Airdrop Page] --> B[Scraper (requests + BeautifulSoup)]
-  B --> C[Transformer (clean text + extract reward amount)]
-  C --> D[Validator (required fields)]
-  B --> E[Detail Parser (time left, project link, steps, risk)]
+  A["Cointelegraph Airdrop Page"] --> B["Scraper (requests + BeautifulSoup)"]
+  B --> C["Transformer (clean text + extract reward amount)"]
+  C --> D["Validator (required fields)"]
+  B --> E["Detail Parser (time left, project link, steps, risk)"]
   D --> F{Valid?}
-  F -- yes --> G[Exporter (JSON)]
-  F -- no --> X[Skip + Log]
+  F -- yes --> G["Exporter (JSON)"]
+  F -- no --> X["Skip + Log"]
 ```
 
 - **Scraper (`scraper.py`)**  

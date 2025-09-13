@@ -1,7 +1,7 @@
 # AI Usage Documentation
 
 ## 1. Prompts Used
-Below is the full list of prompts that were used with AI tools during the development of this project (originally in English and Korean; all translated to English here):
+Below is the full list of prompts that were used with AI tools during the development of this project:
 
 - "Please make a python scraper to collect the raw data from the site and then we'll parse it"
 - "Here is the raw HTML, parse it so that we can have clean returns. no longer return as a file, return an array of json objects"
