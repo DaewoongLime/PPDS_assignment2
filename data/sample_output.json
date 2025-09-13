@@ -1,72 +1,100 @@
 [
   {
     "project_name": "Arkham",
-    "task_title": "Sign up for Arkham Exchange & get up to 120 USDT bonus",
+    "task_name": "Sign up for Arkham Exchange & get up to 120 USDT bonus",
     "reward": "120 USDT",
-    "reward_amount": 120.0,
-    "scraped_at": "2025-09-13T21:10:30.847373Z"
+    "scraped_at": "2025-09-12T21:57:48.379193",
+    "time_left": {
+      "days": "16",
+      "hours": "22",
+      "minutes": "2"
+    },
+    "project_links": [
+      "https://arkm.com/register?ref=cointelegraphex",
+      "https://x.com/arkham",
+      "https://discord.com/invite/arkham"
+    ],
+    "step_count": 5,
+    "cta_link": "https://arkm.com/register?ref=cointelegraphex",
+    "cta_text": "Claim bonus"
   },
   {
     "project_name": "AITV",
-    "task_title": "Engage with AITV agents to earn the $AITV airdrop",
+    "task_name": "Engage with AITV agents to earn the $AITV airdrop",
     "reward": "$AITV",
-    "reward_amount": null,
-    "scraped_at": "2025-09-13T21:10:30.847735Z"
+    "scraped_at": "2025-09-12T21:57:52.059834",
+    "time_left": {
+      "days": "5",
+      "hours": "22",
+      "minutes": "2"
+    },
+    "project_links": [
+      "https://x.com/aitvgg",
+      "https://aitv.gg/invite/Cointelegraph",
+      "https://t.me/aitv_community"
+    ],
+    "time_to_complete": "3\u20135 minutes to start",
+    "risk_level": "Low",
+    "step_count": 5,
+    "cta_link": "https://aitv.gg/invite/Cointelegraph",
+    "cta_text": "Get your share of 50M $AITV"
   },
   {
     "project_name": "Almanak",
-    "task_title": "Deposit into Almanak vaults to farm points for a future airdrop",
+    "task_name": "Deposit into Almanak vaults to farm points for a future airdrop",
     "reward": "Token drop",
-    "reward_amount": null,
-    "scraped_at": "2025-09-13T21:10:30.848014Z"
+    "scraped_at": "2025-09-12T21:57:55.742723",
+    "time_left": {
+      "days": "7",
+      "hours": "22",
+      "minutes": "2"
+    },
+    "project_links": [
+      "https://almanak.co/",
+      "https://x.com/Almanak__",
+      "https://t.me/AlmanakAgents"
+    ],
+    "time_to_complete": "10\u201315 minutes initial setup",
+    "risk_level": "Medium",
+    "step_count": 6,
+    "cta_link": "https://app.almanak.co/invite?code=yzCa5JDH",
+    "cta_text": "Start farming Almanak Points"
   },
   {
     "project_name": "GTR",
-    "task_title": "Trade on GTR to farm points for future airdrops",
+    "task_name": "Trade on GTR to farm points for future airdrops",
     "reward": "Token drop",
-    "reward_amount": null,
-    "scraped_at": "2025-09-13T21:10:30.848292Z"
+    "scraped_at": "2025-09-12T21:57:59.638575",
+    "time_left": {
+      "days": "5",
+      "hours": "22",
+      "minutes": "1"
+    },
+    "project_links": ["https://gtr.trade/", "https://x.com/GTRTrade"],
+    "time_to_complete": "~10 minutes",
+    "risk_level": "High",
+    "step_count": 6,
+    "cta_link": "https://gtr.trade/?ref=79DF3Q",
+    "cta_text": "Start trading on GTR"
   },
   {
     "project_name": "Bullpen",
-    "task_title": "Trade on Bullpen to farm points for a future airdrop",
+    "task_name": "Trade on Bullpen to farm points for a future airdrop",
     "reward": "Airdrop",
-    "reward_amount": null,
-    "scraped_at": "2025-09-13T21:10:30.848580Z"
-  },
-  {
-    "project_name": "Band Protocol",
-    "task_title": "Scroll with Membit to farm points for Band Protocol’s potential airdrop",
-    "reward": "Token drop",
-    "reward_amount": null,
-    "scraped_at": "2025-09-13T21:10:30.848841Z"
-  },
-  {
-    "project_name": "Datagram Network",
-    "task_title": "Run a Datagram node to earn points for future $DGRAM airdrop",
-    "reward": "$DGRAM airdrop",
-    "reward_amount": null,
-    "scraped_at": "2025-09-13T21:10:30.849106Z"
-  },
-  {
-    "project_name": "Project X",
-    "task_title": "Trade and provide liquidity on Project X to farm points for a future airdrop",
-    "reward": "Token drop",
-    "reward_amount": null,
-    "scraped_at": "2025-09-13T21:10:30.849383Z"
-  },
-  {
-    "project_name": "Strata",
-    "task_title": "Deposit USDe into Strata to farm points for a potential airdrop",
-    "reward": "Potential airdrop",
-    "reward_amount": null,
-    "scraped_at": "2025-09-13T21:10:30.849648Z"
-  },
-  {
-    "project_name": "Okto",
-    "task_title": "Trade on Hyperliquid via Okto wallet to earn weekly $HYPE airdrops",
-    "reward": "Weekly $HYPE airdrop",
-    "reward_amount": null,
-    "scraped_at": "2025-09-13T21:10:30.849895Z"
+    "scraped_at": "2025-09-12T21:58:03.331459",
+    "time_left": {
+      "days": "5",
+      "hours": "22",
+      "minutes": "1"
+    },
+    "project_links": [
+      "https://app.bullpen.fi/explore",
+      "https://x.com/BullpenFi"
+    ],
+    "time_to_complete": "10\u201315 minutes to set up",
+    "risk_level": "Medium",
+    "step_count": 6,
+    "cta_link": "https://bullpen.fi/@hosting.ctconsulting",
+    "cta_text": "Start trading on Bullpen"
   }
 ]
