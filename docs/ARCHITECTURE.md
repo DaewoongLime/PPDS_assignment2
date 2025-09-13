@@ -3,9 +3,9 @@
 ## System Components
 
 ### Core Files
-- **`src/scraper.py`** — Main scraping logic and orchestration  
-- **`src/transformers.py`** — Data cleaning and standardization functions  
-- **`src/validators.py`** — Data validation and quality checking  
+- **`scraper.py`** — Main scraping logic and orchestration  
+- **`transformers.py`** — Data cleaning and numeric reward parsing  
+- **`validators.py`** — Data validation and quality checking  
 - **`requirements.txt`** — Python dependencies  
 - **`docs/ETHICS.md`** — Web scraping ethics and compliance
 
@@ -13,99 +13,72 @@
 1. Raw HTML Extraction  
 2. Data Transformation  
 3. Data Validation  
-4. Clean JSON Output
+4. Clean JSON Output  
 
+---
 
 ## Architecture Details
 
-### 1) Raw HTML Extraction (`src/scraper.py`)
+### 1) Raw HTML Extraction (`scraper.py`)
 - **Target**: Cointelegraph crypto bonus airdrop page  
 - **Method**: HTTP requests using `requests`  
 - **Parsing**: `BeautifulSoup4` with CSS selectors  
 - **Rate Limiting**: 1-second delay between requests; **exponential backoff on 429/5xx**  
-- **Output**: Raw dictionary objects reflecting page structure
+- **Output**: Raw dictionary objects with project/task/reward fields  
 
-### 2) Data Transformation (`src/transformers.py`)
+### 2) Data Transformation (`transformers.py`)
 - **Input**: Raw scraped dictionaries  
 - **Functions**:
-  - `clean_text()` — Remove extra spaces and prefixes
-  - `clean_project_name()` — Standardize project names
-  - `extract_token_symbol()` — Find token symbols like `$AITV`
-  - `extract_reward_amount()` — Parse USD amounts (returns `null` if none)
-  - `standardize_categories()` — Clean category names
-  - `get_action_type()` — Determine required action type
-- **Output**: Standardized data objects
+  - `clean_text()` — Remove extra spaces and normalize whitespace  
+  - `extract_reward_amount()` — Parse numeric reward amounts (USD, k, M suffixes, etc.)  
+- **Output**: Transformed data with cleaner text and numeric reward field  
 
-### 3) Data Validation (`src/validators.py`)
+### 3) Data Validation (`validators.py`)
 - **Input**: Transformed data objects  
 - **Functions**:
-  - `validate_airdrop()` — Check individual records
-  - `validate_batch()` — Validate multiple records
-  - `calculate_quality_score()` — Score from 0–100
-  - `get_validation_summary()` — Human-readable summary
-- **Output**: Validation results and quality metrics
+  - `validate_airdrop()` — Check required fields (`project_name`, `task_title`)  
+  - `validate_batch()` — Validate multiple records and return summary  
+- **Output**: Boolean validity per record + summary counts  
 
 ### 4) Clean JSON Output
 - **Format**: Array of standardized JSON objects  
 - **Fields**:
-  - `project_name` — Clean project identifier
-  - `task_title` — What needs to be done
-  - `task_description` — Detailed instructions
-  - `categories` — Standardized category tags
-  - `reward_token` — Token symbol (if any)
-  - `reward_amount` — USD value or `null`
-  - `action_required` — Classification of action type
-  - `geographic_scope` — Availability region
-  - `labels` — Status indicators (e.g., `new`, `hot`)
-  - `scraped_at` — Timestamp
+  - `project_name` — Clean project identifier  
+  - `task_title` — What needs to be done  
+  - `reward` — Raw reward text  
+  - `reward_amount` — Parsed numeric value (or `null`)  
+  - `scraped_at` — Timestamp  
+  - (plus optional detail fields: `detail_time_left`, `detail_project_link`, `detail_time_to_complete`, `detail_steps`, `detail_risk`)  
+
+---
 
 ## Technical Stack
 
-### Dependencies
 - **`requests`** — HTTP client for web scraping  
 - **`beautifulsoup4`** — HTML parsing and CSS selection  
-- **`lxml`** — Fast XML/HTML parser backend
+- **`lxml`** — Fast parser backend  
+- **`tqdm`** — Progress bar  
 
-### Python Features Used
-- **Type hints** — Function signatures and return types  
-- **Regular expressions** — Pattern matching for data extraction  
-- **JSON serialization** — Output formatting with stdlib  
-- **Error handling** — Try/except for robust operation
+---
 
 ## Design Principles
 
-### Modularity
-- **Separation of concerns** — Single responsibility per file  
-- **Reusable functions** — Transformers are composable  
-- **Clean interfaces** — Simple, typed function signatures
+- **Modularity** — Each file has a single responsibility  
+- **Pipeline flow** — Scrape → Transform → Validate → Output  
+- **Error handling** — Retry with exponential backoff, skip invalid records  
+- **Respectful scraping** — Rate limiting + polite delays  
+- **Transparency** — Logs validation summary, saves JSON output  
 
-### Data Pipeline
-- **Sequential processing** — Scrape → Transform → Validate → Output  
-- **Immutable transformations** — Preserve original data  
-- **Quality gates** — Validation before output
-
-### Robustness
-- **Error handling** — Graceful failure modes  
-- **Input validation** — Check data types and formats  
-- **Rate limiting** — Respect server resources  
-- **Logging** — Progress and status reporting
-
-### Extension Points
-- **Multi-site support** — Add new scraper classes  
-- **Database storage** — Swap JSON for DB sink  
-- **Parallel processing** — Async or multi-process for speed  
-- **Configuration** — External settings files
+---
 
 ## Usage Patterns
 
-### Development Workflow
 ```bash
 # Install dependencies
 pip install -r requirements.txt
 
-# Run scraper
-python src/scraper.py
+# Run scraper (collect up to 10 items by default)
+python scraper.py
 
-# View results
-# JSON output printed to console (or saved to /data)
-```
+# View results in /data/sample_output.json
+cat data/sample_output.json
