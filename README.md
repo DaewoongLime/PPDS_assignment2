@@ -86,10 +86,12 @@ python scraper.py
 
 ---
 
-## 📈 Performance Metrics (to be measured)
-- Pages/minute: TBD  
-- Error rate: TBD  
-- Validation success rate: TBD  
+## 📈 Performance Metrics (measured locally)
+- Pages/min: ~255
+- Error rate: 0% (10/10 exported)
+- Validation success: 100%
+- Test setup: macOS, Python 3.12, zsh, Wi-Fi, 2025-09-13, limit=10
+
 
 ---
 
