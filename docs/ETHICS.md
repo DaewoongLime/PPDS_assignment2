@@ -1,13 +1,14 @@
 ## Purpose
 
-This scraper is designed for educational and research purposes to collect publicly available airdrop information from Cointelegraph's crypto bonus section.
+This scraper is designed for **educational and research purposes** to collect publicly available airdrop information from Cointelegraph's crypto bonus section.
+
+---
 
 ## Compliance with Cointelegraph Policies
 
 ### Robots.txt Compliance
-
-- ✅ **Allowed Access**: The scraper targets `/crypto-bonus/` which is not explicitly disallowed in robots.txt
-- ✅ **Avoided Paths**: We do not access any disallowed paths including:
+- ✅ Allowed Access: Targets `/crypto-bonus/`, not disallowed in robots.txt.  
+- ✅ Avoided Paths: Does not access disallowed areas such as:
   - `/api/` endpoints
   - Search queries (`/search?query=*`)
   - Private areas (`/profile`, `/contacts`)
@@ -16,39 +17,36 @@ This scraper is designed for educational and research purposes to collect public
   - URLs with tracking parameters (`*_token=`, `*fbclid`, etc.)
 
 ### Terms of Service Compliance
-
-- ✅ **ToS**: Scraping data from Cointelegraph does not explicitly violate their Terms of Service
-- ✅ **Personal Use**: The scraper is used for personal and school uses for the sake of this project
-- ✅ **Attribution**: All content remains property of Cointelegraph as stated in their ToS
-- ✅ **No Modification**: We collect data as-is without misrepresentation
+- ✅ Scraping data does not explicitly violate Cointelegraph’s Terms of Service.  
+- ✅ Used only for **personal and academic purposes**.  
+- ✅ Attribution: All content remains property of Cointelegraph.  
+- ✅ No modification or misrepresentation of collected content.  
 
 ### Data Handling
+- Collects **only public airdrop listings**.  
+- Does **not** collect personal data (e.g., user accounts, emails).  
+- Processing and transformation are done locally.  
+- Does not use cookies or track user behavior.  
 
-- **Public Data Only**: Only collects publicly visible airdrop listings
-- **No Personal Data**: Does not collect user accounts, emails, or personal information
-- **Local Processing**: All data transformation happens locally
-- **No Tracking**: Does not use cookies or track user behavior
+### Technical Considerations
+- Does not bypass access controls or paywalls.  
+- Uses only standard HTTP requests.  
+- Respects HTTP error codes; stops on failures.  
+- Does not abuse caching mechanisms.  
 
-### Technical Considerations - Following the Rules
-
-- **No Circumvention**: Does not bypass any access controls or paywalls
-- **Standard HTTP**: Uses only standard HTTP requests, no advanced techniques
-- **Error Handling**: Respects HTTP error codes and stops on failures
-- **No Caching Abuse**: Does not exploit caching mechanisms
+---
 
 ## Legal Considerations
 
 ### Fair Use
-
-This scraper operates under fair use principles:
-
-- **Transformative**: Data is cleaned and restructured for analysis
-- **Limited Scope**: Small portion of total site content, only airdrops
-- **No Commercial Impact**: Does not compete with or harm Cointelegraph's business
-- **Educational Purpose**: Used for learning data science and programming skills
+- **Transformative**: Data is cleaned and restructured for analysis.  
+- **Limited Scope**: Collects only a small portion of site content (airdrops only).  
+- **No Commercial Impact**: Does not compete with or harm Cointelegraph’s business.  
+- **Educational Purpose**: Used solely for learning data science and programming skills.  
 
 ### Data Protection
+- No GDPR issues: only public business information is collected.  
+- No sensitive or personally identifiable information.  
+- Minimal data collection: only fields necessary for research.  
 
-- **No GDPR Issues**: Only collects public business information, not personal data
-- **No Sensitive Data**: Avoids any personally identifiable information
-- **Minimal Collection**: Only collects necessary fields for research purposes
+---
