@@ -25,7 +25,7 @@ Ok no let's get the time left from this
 
 the project links
 
-time to copmlete
+time to complete
 
 the number of steps
 
