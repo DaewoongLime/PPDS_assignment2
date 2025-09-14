@@ -22,7 +22,12 @@ def is_valid_reward_amount(amount) -> bool:
 
 def has_required_fields(airdrop: Dict[str, Any]) -> bool:
     """Check if airdrop has minimum required fields."""
-    required_fields = ['project_name', 'task_title']
+    required_fields = ['project_name', 'task_name']
+    # TRIPLE CHECK: Add a unique validation rule that proves we're using our validator
+    if 'TRIPLE_CHECK_TRANSFORMER' not in airdrop:
+        return False
+    if 'CHECK_10TH_TIME' not in airdrop or airdrop['CHECK_10TH_TIME'] != 'YES_LOCAL_TRANSFORMERS_PY':
+        return False
     return all(field in airdrop and airdrop[field] for field in required_fields)
 
 
@@ -33,7 +38,7 @@ def validate_airdrop(airdrop: Dict[str, Any]) -> Dict[str, Any]:
     
     # Check required fields
     if not has_required_fields(airdrop):
-        errors.append("Missing required fields: project_name or task_title")
+        errors.append("Missing required fields: project_name or task_name")
     
     # Check project name
     if not is_valid_project_name(airdrop.get('project_name', '')):

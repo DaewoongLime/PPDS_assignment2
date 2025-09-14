@@ -1,6 +1,7 @@
 # AI Usage Documentation
 
 ## 1. Prompts Used
+
 Below is the full list of prompts that were used with AI tools during the development of this project:
 
 - "Please make a python scraper to collect the raw data from the site and then we'll parse it"
@@ -19,43 +20,55 @@ Below is the full list of prompts that were used with AI tools during the develo
 - "risk"
 - "these are 1 page in so get these"
 - "keep in mind the time is JS so we need to delay"
+- "can we update it to save ot sample_output.json instead in the data folder of
+  console it"
 - "We already have our scraper, right?"
 - "Ok the code works. Explain how to use the validator and transformer as well."
+- "ok let's go to respectful scraping now and implement exponential backoff and retry
+  limits very simply
+
 ---
 
 ## 2. AI-Generated vs Human-Written Code
+
 - **AI-Generated (initial drafts):**
+
   - Skeleton of `scraper.py` (requests + BeautifulSoup loop, retry/backoff pattern)
   - Functions `clean_text()` and `extract_reward_amount()` in `transformers.py`
   - Validator skeleton (`validate_airdrop`, `validate_batch`) in `validators.py`
   - Early versions of `requirements.txt` and initial `README` template
 
 - **Human-Written or Heavily Edited:**
-  - Detail page parsing logic (`parse_detail_page` in `scraper.py`)
-  - Integration of progress bar with graceful fallback
   - Validation refinements and alignment with project schema
   - Business_case, ethics, and architecture documentation
-  - Final `README.md` and this `AI_USAGE.md`
+  - Final `README.md`, `AI_USAGE.md`, and `ETHICS.md`
+  - Again, each file was read through and refined. Adjustments made where needed.
 
 ---
 
 ## 3. Bugs Found in AI Suggestions & Fixes
+
 - **Bug:** AI suggested `from transformers import clean_text` which conflicted with the HuggingFace library `transformers`.
+
   - **Fix:** Renamed to local module `transformers.py` in repo.
 
 - **Bug:** AI output initially saved directly to file objects; repo requirement was to export JSON array.
+
   - **Fix:** Updated to collect dicts in list, then `json.dump` at once.
 
 - **Bug:** Progress bar dependency was omitted from requirements.
+
   - **Fix:** Added `tqdm` to `requirements.txt`.
 
 - **Bug:** AI didn’t implement robots.txt check or ethics notes.
+
   - **Fix:** ETHICS.md written manually, scraper constrained to public bonus pages only.
 
 ---
 
 ## 4. Performance & Productivity Notes
-- **Development speed:** Initial AI-generated code provided a working scraper in under 30 minutes; manually writing would have taken several hours.
+
+- **Development speed:** Initial AI-generated code got us to a working prototype; manually writing would have taken several hours.
 - **Bug fixing time:** AI suggestions introduced 3–4 bugs which required ~1 hour of human debugging.
 - **Runtime performance:**
   - ~10 pages scraped in <30s (including politeness delay).

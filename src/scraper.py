@@ -3,8 +3,9 @@ from bs4 import BeautifulSoup
 import json
 from datetime import datetime
 import time
-from transformers import transform_airdrop_data
-from validators import get_validation_summary
+from tqdm import tqdm
+import transformers
+import validators
 
 class SimpleCointelegraphScraper:
     """Simplified scraper for Cointelegraph airdrop data."""
@@ -23,9 +24,23 @@ class SimpleCointelegraphScraper:
     
     def scrape_basic_info(self, limit=10):
         """Scrape basic airdrop info from the main page with detail page enhancement"""
+        # Retry with exponential backoff for main page
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                response = self.session.get(self.base_url)
+                response.raise_for_status()
+                break
+            except requests.RequestException as e:
+                wait_time = 2 ** attempt  # 1s, 2s, 4s
+                print(f"⚠️  Main page request failed (attempt {attempt + 1}/{max_retries}), waiting {wait_time}s...")
+                if attempt < max_retries - 1:
+                    time.sleep(wait_time)
+                else:
+                    print(f"❌ Failed to fetch main page after {max_retries} attempts")
+                    return []
+        
         try:
-            response = self.session.get(self.base_url)
-            response.raise_for_status()
             soup = BeautifulSoup(response.text, 'html.parser')
             
             # Find all airdrop cards - they might be inside links
@@ -37,7 +52,7 @@ class SimpleCointelegraphScraper:
                 cards = [link for link in link_cards if link.find('div', class_='card')]
             
             airdrops = []
-            for card in cards:
+            for card in tqdm(cards, desc="Scraping airdrops", unit="card"):
                 airdrop = self.parse_card_simple(card)
                 if airdrop:
                     # Try to get more detailed data from detail page
@@ -121,9 +136,23 @@ class SimpleCointelegraphScraper:
         """Scrape detail page to get comprehensive data"""
         detail_data = {}
         
+        # Retry with exponential backoff
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                response = self.session.get(detail_url)
+                response.raise_for_status()
+                break
+            except requests.RequestException as e:
+                wait_time = 2 ** attempt  # 1s, 2s, 4s
+                print(f"⚠️  Request failed (attempt {attempt + 1}/{max_retries}), waiting {wait_time}s...")
+                if attempt < max_retries - 1:
+                    time.sleep(wait_time)
+                else:
+                    print(f"❌ Failed to fetch {detail_url} after {max_retries} attempts")
+                    return detail_data
+        
         try:
-            response = self.session.get(detail_url)
-            response.raise_for_status()
             
             # Add minimal delay and parse the page
             time.sleep(2)
@@ -244,7 +273,7 @@ class SimpleCointelegraphScraper:
         time.sleep(1)
         return detail_data
     
-    def save_data(self, data, filename='airdrops_simple.json'):
+    def save_data(self, data, filename='data/sample_output.json'):
         """Save data to JSON file"""
         with open(filename, 'w') as f:
             json.dump(data, f, indent=2)
@@ -254,10 +283,46 @@ if __name__ == "__main__":
     scraper = SimpleCointelegraphScraper()
     airdrops = scraper.scrape_basic_info(limit=5)
     
-    print(f"\nScraped {len(airdrops)} airdrops:")
+    # Transform data first
+    transformed_airdrops = transformers.transform_airdrop_data(airdrops)
+    
+    # Validate transformed data and filter valid ones
+    valid_airdrops = validators.filter_valid_airdrops(transformed_airdrops)
+    validation_summary = validators.get_validation_summary(transformed_airdrops)
+    print(f"✅ {validation_summary}")
+    
+    # Add simple business calculations  
+    # Remove the TRIPLE_CHECK field before business logic
+    for airdrop in valid_airdrops:
+        if 'TRIPLE_CHECK_TRANSFORMER' in airdrop:
+            del airdrop['TRIPLE_CHECK_TRANSFORMER']
+        if 'CHECK_10TH_TIME' in airdrop:
+            del airdrop['CHECK_10TH_TIME']
+    
+    for airdrop in valid_airdrops:
+        # Priority score (urgent = higher priority)
+        if 'time_left' in airdrop:
+            days = int(airdrop['time_left'].get('days', 0))
+            if days <= 1:
+                airdrop['priority'] = 'HIGH'
+            elif days <= 7:
+                airdrop['priority'] = 'MEDIUM' 
+            else:
+                airdrop['priority'] = 'LOW'
+        
+        # Effort vs reward estimate
+        steps = airdrop.get('step_count', 0)
+        if steps <= 3:
+            airdrop['effort'] = 'Easy'
+        elif steps <= 6:
+            airdrop['effort'] = 'Medium'
+        else:
+            airdrop['effort'] = 'Hard'
+    
+    print(f"\nScraped {len(valid_airdrops)} airdrops:")
     print("=" * 50)
     
-    for airdrop in airdrops:
+    for airdrop in valid_airdrops:
         print(f"\n📋 {airdrop['project_name']}")
         print(f"   Task: {airdrop['task_name']}")
         print(f"   Reward: {airdrop['reward']}")
@@ -280,6 +345,13 @@ if __name__ == "__main__":
         
         if 'project_links' in airdrop:
             print(f"   🌐 Links: {len(airdrop['project_links'])} social/project links")
+            
+        if 'priority' in airdrop:
+            priority_emoji = {'HIGH': '🔥', 'MEDIUM': '⚡', 'LOW': '🟢'}
+            print(f"   {priority_emoji.get(airdrop['priority'], '📊')} Priority: {airdrop['priority']}")
+            
+        if 'effort' in airdrop:
+            print(f"   💪 Effort: {airdrop['effort']}")
     
-    print(f"\n📁 Saved data to: airdrops_simple.json")
-    scraper.save_data(airdrops)
+    print(f"\n📁 Saved data to: data/sample_output.json")
+    scraper.save_data(valid_airdrops)

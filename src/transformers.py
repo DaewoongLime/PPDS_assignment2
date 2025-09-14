@@ -137,42 +137,22 @@ class AirdropDataTransformer:
     
     def transform_airdrop(self, raw_data: Dict[str, Any]) -> Dict[str, Any]:
         """Transform raw airdrop data to clean format."""
-        transformed = {
-            'project_name': clean_project_name(raw_data.get('project_name', '')),
-            'task_name': clean_text(raw_data.get('task_name', '')),
-            'labels': [label.lower() for label in raw_data.get('labels', []) if label],
-        }
+        # Start with all original data
+        transformed = raw_data.copy()
         
-        # Add reward if available
-        if raw_data.get('reward'):
-            transformed['reward'] = raw_data.get('reward')
+        # Clean specific fields
+        if 'project_name' in transformed:
+            transformed['project_name'] = clean_project_name(transformed['project_name'])
+        if 'task_name' in transformed:
+            transformed['task_name'] = clean_text(transformed['task_name'])
         
-        # Add timestamp and time display from initial page
-        if raw_data.get('timestamp'):
-            transformed['timestamp'] = raw_data.get('timestamp')
-        if raw_data.get('time_display'):
-            transformed['time_display'] = raw_data.get('time_display')
-            # Parse days remaining from time display
-            transformed['days_remaining'] = parse_days_remaining(raw_data.get('time_display', ''))
-        else:
-            transformed['days_remaining'] = 0
+        # TRIPLE CHECK: Add a unique field that proves we're using our transformer
+        transformed['TRIPLE_CHECK_TRANSFORMER'] = 'LOCAL_FILE_USED'
+        transformed['CHECK_10TH_TIME'] = 'YES_LOCAL_TRANSFORMERS_PY'
         
-        # Add detail page information if available (skip time_left, use time_display instead)
-        
-        if raw_data.get('time_to_complete'):
-            transformed['time_to_complete'] = raw_data.get('time_to_complete')
-        
-        if raw_data.get('project_links'):
-            transformed['project_links'] = raw_data.get('project_links')
-            
-        if raw_data.get('steps'):
-            transformed['step_count'] = len(raw_data.get('steps', []))
-            
-        if raw_data.get('risk_level'):
-            transformed['risk_level'] = raw_data.get('risk_level')
-            
-        if raw_data.get('main_action_url'):
-            transformed['main_action_url'] = raw_data.get('main_action_url')
+        # Remove labels field if it exists
+        if 'labels' in transformed:
+            del transformed['labels']
         
         return transformed
     

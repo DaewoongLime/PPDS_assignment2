@@ -3,11 +3,11 @@
     "project_name": "Arkham",
     "task_name": "Sign up for Arkham Exchange & get up to 120 USDT bonus",
     "reward": "120 USDT",
-    "scraped_at": "2025-09-12T21:57:48.379193",
+    "scraped_at": "2025-09-13T20:35:13.093420",
     "time_left": {
-      "days": "16",
-      "hours": "22",
-      "minutes": "2"
+      "days": "15",
+      "hours": "23",
+      "minutes": "24"
     },
     "project_links": [
       "https://arkm.com/register?ref=cointelegraphex",
@@ -16,17 +16,19 @@
     ],
     "step_count": 5,
     "cta_link": "https://arkm.com/register?ref=cointelegraphex",
-    "cta_text": "Claim bonus"
+    "cta_text": "Claim bonus",
+    "priority": "LOW",
+    "effort": "Medium"
   },
   {
     "project_name": "AITV",
     "task_name": "Engage with AITV agents to earn the $AITV airdrop",
     "reward": "$AITV",
-    "scraped_at": "2025-09-12T21:57:52.059834",
+    "scraped_at": "2025-09-13T20:35:16.812254",
     "time_left": {
-      "days": "5",
-      "hours": "22",
-      "minutes": "2"
+      "days": "4",
+      "hours": "23",
+      "minutes": "24"
     },
     "project_links": [
       "https://x.com/aitvgg",
@@ -37,17 +39,19 @@
     "risk_level": "Low",
     "step_count": 5,
     "cta_link": "https://aitv.gg/invite/Cointelegraph",
-    "cta_text": "Get your share of 50M $AITV"
+    "cta_text": "Get your share of 50M $AITV",
+    "priority": "MEDIUM",
+    "effort": "Medium"
   },
   {
     "project_name": "Almanak",
     "task_name": "Deposit into Almanak vaults to farm points for a future airdrop",
     "reward": "Token drop",
-    "scraped_at": "2025-09-12T21:57:55.742723",
+    "scraped_at": "2025-09-13T20:35:20.710971",
     "time_left": {
-      "days": "7",
-      "hours": "22",
-      "minutes": "2"
+      "days": "6",
+      "hours": "23",
+      "minutes": "24"
     },
     "project_links": [
       "https://almanak.co/",
@@ -58,34 +62,41 @@
     "risk_level": "Medium",
     "step_count": 6,
     "cta_link": "https://app.almanak.co/invite?code=yzCa5JDH",
-    "cta_text": "Start farming Almanak Points"
+    "cta_text": "Start farming Almanak Points",
+    "priority": "MEDIUM",
+    "effort": "Medium"
   },
   {
     "project_name": "GTR",
     "task_name": "Trade on GTR to farm points for future airdrops",
     "reward": "Token drop",
-    "scraped_at": "2025-09-12T21:57:59.638575",
+    "scraped_at": "2025-09-13T20:35:24.425735",
     "time_left": {
-      "days": "5",
-      "hours": "22",
-      "minutes": "1"
+      "days": "4",
+      "hours": "23",
+      "minutes": "24"
     },
-    "project_links": ["https://gtr.trade/", "https://x.com/GTRTrade"],
+    "project_links": [
+      "https://gtr.trade/",
+      "https://x.com/GTRTrade"
+    ],
     "time_to_complete": "~10 minutes",
     "risk_level": "High",
     "step_count": 6,
     "cta_link": "https://gtr.trade/?ref=79DF3Q",
-    "cta_text": "Start trading on GTR"
+    "cta_text": "Start trading on GTR",
+    "priority": "MEDIUM",
+    "effort": "Medium"
   },
   {
     "project_name": "Bullpen",
     "task_name": "Trade on Bullpen to farm points for a future airdrop",
     "reward": "Airdrop",
-    "scraped_at": "2025-09-12T21:58:03.331459",
+    "scraped_at": "2025-09-13T20:35:28.176115",
     "time_left": {
-      "days": "5",
-      "hours": "22",
-      "minutes": "1"
+      "days": "4",
+      "hours": "23",
+      "minutes": "24"
     },
     "project_links": [
       "https://app.bullpen.fi/explore",
@@ -95,6 +106,8 @@
     "risk_level": "Medium",
     "step_count": 6,
     "cta_link": "https://bullpen.fi/@hosting.ctconsulting",
-    "cta_text": "Start trading on Bullpen"
+    "cta_text": "Start trading on Bullpen",
+    "priority": "MEDIUM",
+    "effort": "Medium"
   }
 ]
