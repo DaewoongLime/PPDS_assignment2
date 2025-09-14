@@ -34,9 +34,9 @@ Below is the full list of prompts that were used with AI tools during the develo
 - **AI-Generated (initial drafts):**
 
   - Skeleton of `scraper.py` (requests + BeautifulSoup loop, retry/backoff pattern)
-  - Functions `clean_text()` and `extract_reward_amount()` in `transformers.py`
+  - Transformer skeleton, `clean_text()` and `extract_reward_amount()` in `transformers.py`
   - Validator skeleton (`validate_airdrop`, `validate_batch`) in `validators.py`
-  - Early versions of `requirements.txt` and initial `README` template
+  - `requirements.txt` and initial `README` template
 
 - **Human-Written or Heavily Edited:**
   - Validation refinements and alignment with project schema

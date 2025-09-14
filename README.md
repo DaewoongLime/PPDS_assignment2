@@ -48,13 +48,24 @@ flowchart LR
 
 ---
 
-# ⚙️ Setup & Installation
+# ⚙️ Setup & Deployment
 
-1. Clone the repository and enter the project folder.
+1. Clone the repository and enter the project folder:
+   ```bash
+   git clone <repository-url>
+   cd PPDS_assignment2
+   ```
+
 2. Create a virtual environment and install dependencies:
    ```bash
-   python -m venv .venv && source .venv/bin/activate
+   python3 -m venv .venv && source .venv/bin/activate
    pip install -r requirements.txt
+   ```
+
+3. Run the scraper:
+   ```bash
+   cd src
+   python3 scraper.py
    ```
 3. Dependencies:
    - `requests` (HTTP client)
@@ -211,7 +222,7 @@ Lesson: Trusted crypto data platforms consistently scale into billion-dollar ass
 # Technical Feasibility Study
 
 1. We analyzed our website's structure.
-2. Times left until a launch are loaded in dynamically through JS so we added a delay when it came to scraping them off of the detailed view pages.
+2. Times left until a launch are loaded in dynamically through JS so we added a delay when it came to scraping them off of the detailed view pages. Otherwise our approach should work fine. We'll also be targeting the outermost div and then dealing with its internal contents since the structure of the exact fields sometimes changes.
 3. The challenge matrix is listed below
 
 | Challenge                 | Difficulty (1–5) | Solution Strategy                                                              |
