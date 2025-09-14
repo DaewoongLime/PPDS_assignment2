@@ -37,12 +37,14 @@ Below is the full list of prompts that were used with AI tools during the develo
   - Transformer skeleton, `clean_text()` and `extract_reward_amount()` in `transformers.py`
   - Validator skeleton (`validate_airdrop`, `validate_batch`) in `validators.py`
   - `requirements.txt` and initial `README` template
+  - Almost all the code was written with AI using either ChatGPT or Claude Code
 
 - **Human-Written or Heavily Edited:**
   - Validation refinements and alignment with project schema
   - Business_case, ethics, and architecture documentation
   - Final `README.md`, `AI_USAGE.md`, and `ETHICS.md`
   - Again, each file was read through and refined. Adjustments made where needed.
+  - A lot of the ethics and other files were human written as well.
 
 ---
 
