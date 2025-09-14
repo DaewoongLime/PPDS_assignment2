@@ -245,7 +245,7 @@ class SimpleCointelegraphScraper:
             
             # Fallback to timestamp if timer not available
             if 'time_left' not in detail_data:
-                timestamp_elem = soup.find('[data-timestamp]')
+                timestamp_elem = soup.select_one('[data-timestamp]')
                 if timestamp_elem:
                     timestamp = timestamp_elem.get('data-timestamp')
                     if timestamp:
